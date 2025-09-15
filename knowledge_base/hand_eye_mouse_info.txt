@@ -1,0 +1,95 @@
+Hand Gesture Mouse Project
+
+1. What is it?
+The Hand Gesture Mouse is a computer vision–based system that uses a webcam and AI (e.g., MediaPipe, OpenCV) to track hand movements and translate them into mouse operations like move, click, drag, and scroll.
+
+2. Why build it?
+- Touchless control (useful in hospitals, labs)
+- Accessibility for disabled users
+- Innovation in human–computer interaction
+- Low-cost (webcam only)
+
+3. How it works (Workflow):
+- Webcam captures live video
+- Hand detection with MediaPipe Hands
+- Gestures mapped (pinch, finger taps, etc.)
+- Cursor mapping via normalized coordinates
+- Actions executed via PyAutoGUI
+
+4. Example Features:
+- Cursor movement → index finger
+- Left click → pinch (thumb + index)
+- Right click → index + middle pinch
+- Drag/Draw → hold pinch and move
+
+5. Tech Stack:
+Python, OpenCV, MediaPipe, PyAutoGUI, NumPy
+
+6. Applications:
+- Assistive tech
+- Interactive whiteboards
+- Touch-free healthcare systems
+- Games & AR/VR
+
+7. Challenges:
+- Sensitive to lighting and background clutter
+- Latency issues
+- Fatigue from prolonged use
+
+8. Advantages:
+Affordable, intuitive, accessible, cross-platform
+
+9. Limitations:
+Needs stable lighting, less precise than physical mouse, tiring over long use
+
+
+Eye Tracking Mouse Project
+
+1. What is it?
+The Eye Tracking Mouse (or Gaze-Controlled Mouse) is a system that allows users to control the cursor using eye gaze and blinks/winks for actions.
+
+2. Why build it?
+- Accessibility for motor-impaired individuals
+- Touch-free interaction in sterile environments
+- Innovation in futuristic HCI
+- Cost-effective alternative to hardware trackers
+
+3. How it works (Workflow):
+- Webcam captures user’s face
+- MediaPipe FaceMesh detects eye landmarks
+- Gaze direction mapped to screen coordinates
+- EAR (Eye Aspect Ratio) used for blink detection
+- Blinks/winks trigger clicks/drawing mode
+
+4. Example Features:
+- Cursor moves with gaze
+- Double blink → left click
+- Prolonged blink/wink → right click
+- Drawing mode toggle via blink
+
+5. Tech Stack:
+Python, OpenCV, MediaPipe FaceMesh, NumPy, PyAutoGUI
+
+6. Applications:
+- Assistive technology
+- Healthcare labs/operating rooms
+- Education for special needs
+- Gaming/VR/AR
+
+7. Challenges:
+- Less accurate with webcams vs hardware trackers
+- Lighting sensitivity, glare issues with glasses
+- Eye fatigue
+- Requires calibration
+
+8. Advantages:
+Hands-free, accessibility, low-cost, hygiene-friendly
+
+9. Limitations:
+Lighting and camera dependent, less precise, fatigue issues
+
+Summary
+
+The Hand Gesture Mouse and Eye Tracking Mouse are both innovative touchless control systems. 
+Gesture-based control is intuitive for short tasks, while eye-tracking is highly inclusive for users with mobility limitations. 
+Together, they form the backbone of the Multimodal Air Canvas project — offering users a choice of input modality for accessibility and creativity.

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Multimodal Air Canvas</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Multimodal Air Canvas</h1>
+        <button onclick="window.location.href='/start/hand'">Start Gesture Mode</button>
+        <button onclick="window.location.href='/start/eye'">Start Eye Tracking Mode</button>
+        <button onclick="window.location.href='/start/canvas'">Start Canvas Mode</button>
+        <button onclick="window.location.href='/start/eye_canvas'">Start Eye Canavs</button>
+        <button onclick="window.location.href='/stop'">Stop Detection</button>
+
+    </div>
+
+    <!-- Chatbot floating button -->
+<div id="chatbot-container">
+    <button id="chatbot-toggle">💬</button>
+    <div id="chatbox" class="hidden">
+        <div id="chatbox-header">
+            <span>AirCanvas Assistant 🤖</span>
+            <button id="close-chat">✖</button>
+        </div>
+        <div id="chat-messages"></div>
+        <div id="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ask me something..." />
+            <button id="send-btn">➤</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Toggle chatbot popup
+    let firstOpen = true; // Track if it's the first time opening
+
+// Toggle chatbot popup
+document.getElementById("chatbot-toggle").onclick = () => {
+    const chatbox = document.getElementById("chatbox");
+    chatbox.classList.toggle("hidden");
+
+    // Send greeting only the first time
+    if (!chatbox.classList.contains("hidden") && firstOpen) {
+        const chatMessages = document.getElementById("chat-messages");
+        chatMessages.innerHTML += `<div class='bot-msg'><b>Bot:</b> 👋 Hi there!</div>`;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        firstOpen = false; // Prevent repeating
+    }
+};
+
+
+    // Close button
+    document.getElementById("close-chat").onclick = () => {
+        document.getElementById("chatbox").classList.add("hidden");
+    };
+
+    // Send message
+    async function sendMessage() {
+        const input = document.getElementById("chat-input");
+        const message = input.value.trim();
+        if (!message) return;
+
+        const chatMessages = document.getElementById("chat-messages");
+        chatMessages.innerHTML += `<div class='user-msg'><b>You:</b> ${message}</div>`;
+
+        // Clear input after sending
+        input.value = "";
+
+        // Typing indicator
+        const typingDiv = document.createElement("div");
+        typingDiv.className = "bot-msg";
+        typingDiv.id = "typing";
+        typingDiv.innerHTML = "<i>Bot is typing...</i>";
+        chatMessages.appendChild(typingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        // Fetch response
+        const res = await fetch("/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: message })
+        });
+
+        const data = await res.json();
+        typingDiv.remove();
+
+        chatMessages.innerHTML += `<div class='bot-msg'><b>Bot:</b> ${data.response}</div>`;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    document.getElementById("send-btn").onclick = sendMessage;
+    document.getElementById("chat-input").addEventListener("keypress", e => {
+        if (e.key === "Enter") sendMessage();
+    });
+</script>
+
+</body>
+</html>
