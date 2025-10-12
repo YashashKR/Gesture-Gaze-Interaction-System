@@ -180,11 +180,26 @@ canvas {
 
 #send-btn {
   margin-right: 2px;
-  padding: 10px 14px;
+  padding: 12px 14px;
   background: #024277;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 15px;
+}
+#mic-btn {
+  background: #024277;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 18px;
+  padding: 10px 12px;
+  margin-right: 2px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#mic-btn:hover {
+  background: #3a7db4;
 }
