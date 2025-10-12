@@ -32,7 +32,9 @@
         <div id="chat-messages"></div>
         <div id="chat-input-area">
             <input type="text" id="chat-input" placeholder="Ask me something..." />
+            <button id="mic-btn">🎙️</button>
             <button id="send-btn">➤</button>
+
         </div>
     </div>
 </div>
@@ -69,6 +71,8 @@ document.getElementById("chatbot-toggle").onclick = () => {
 
         const chatMessages = document.getElementById("chat-messages");
         chatMessages.innerHTML += `<div class='user-msg'><b>You:</b> ${message}</div>`;
+        
+
 
         // Clear input after sending
         input.value = "";
@@ -99,6 +103,45 @@ document.getElementById("chatbot-toggle").onclick = () => {
     document.getElementById("chat-input").addEventListener("keypress", e => {
         if (e.key === "Enter") sendMessage();
     });
+
+    // 🎤 Voice recognition setup
+const micBtn = document.getElementById("mic-btn");
+let recognizing = false;
+let recognition;
+
+if ("webkitSpeechRecognition" in window) {
+    recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+
+    recognition.onstart = () => {
+        recognizing = true;
+        micBtn.style.background = "#e74c3c"; // red while recording
+    };
+
+    recognition.onend = () => {
+        recognizing = false;
+        micBtn.style.background = "#024277"; // back to normal
+    };
+
+    recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById("chat-input").value = transcript;
+        sendMessage(); // Automatically send after recognition
+    };
+}
+
+micBtn.onclick = () => {
+    if (!recognizing && recognition) {
+        recognition.start();
+    } else if (recognition) {
+        recognition.stop();
+    }
+};
+
+
+
 </script>
 
 </body>
