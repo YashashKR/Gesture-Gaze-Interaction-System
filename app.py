@@ -13,29 +13,29 @@ mode = "hand"
 @app.route("/")
 def index():
     return render_template("index.html")
-
 @app.route("/start/<tracking_mode>")
 def start_detection(tracking_mode):
     global mode
-    mode = tracking_mode  # Set mode (hand/eye/canvas)
+    mode = tracking_mode
 
     if mode == "hand":
-        hand_gesture_mouse.running = True
-        hand_gesture_mouse.detect_hand_gestures()
+        hand_gesture_mouse.start_hand_gesture()
     elif mode == "eye":
         eye_tracking_mouse.running = True
         eye_tracking_mouse.detect_eye_tracking()
-    elif mode == "canvas": 
+    elif mode == "canvas":
         drawing_canvas.start_canvas()
 
     return redirect(url_for("index"))
 
+
 @app.route("/stop")
 def stop_detection():
-    hand_gesture_mouse.running = False
+    hand_gesture_mouse.stop_hand_gesture()
     eye_tracking_mouse.running = False
-    drawing_canvas.stop_canvas()   
+    drawing_canvas.stop_canvas()
     return redirect(url_for("index"))
+    
 
 # ----------------- CHATBOT ROUTE -----------------
 @app.route("/chat", methods=["POST"])
