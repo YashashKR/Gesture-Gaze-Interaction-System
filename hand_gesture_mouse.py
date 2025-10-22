@@ -55,9 +55,9 @@ def scroll_screen(index_y, middle_y):
 
     if abs(finger_distance) > 0.02:
         if finger_distance > 0.01:
-            pyautogui.scroll(-5)  # Scroll down
+            pyautogui.scroll(-30)  # Scroll down
         elif finger_distance < -0.01:
-            pyautogui.scroll(5)   # Scroll up
+            pyautogui.scroll(30)   # Scroll up
 
         last_scroll_time = current_time
 
@@ -66,9 +66,11 @@ def detect_hand_gestures():
     """Main hand detection loop."""
     global is_dragging, running, smoothed_points
 
+    print("Initializing Camera...")
     cap = cv2.VideoCapture(0)
     cap.set(3, 640)  # Reduce resolution for smoother FPS
     cap.set(4, 480)
+    print("Camera Initialized")
     previous_index_y = None
 
     with mp_hands.Hands(max_num_hands=1,

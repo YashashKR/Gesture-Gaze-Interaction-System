@@ -3,26 +3,33 @@ import hand_gesture_mouse
 import eye_tracking_mouse
 import rag_chatbot
 import drawing_canvas   
-#import eye_tracking_canvas
-
+import threading
 
 app = Flask(__name__)
 mode = "hand"
 
-# ----------------- UI ROUTES -----------------
+
 @app.route("/")
 def index():
     return render_template("index.html")
+
 @app.route("/start/<tracking_mode>")
 def start_detection(tracking_mode):
     global mode
     mode = tracking_mode
 
     if mode == "hand":
+        hand_gesture_mouse.stop_hand_gesture()  # Ensure clean state
         hand_gesture_mouse.start_hand_gesture()
+
     elif mode == "eye":
-        eye_tracking_mouse.running = True
-        eye_tracking_mouse.detect_eye_tracking()
+        def run_eye_tracking():
+            eye_tracking_mouse.running = True
+            eye_tracking_mouse.detect_eye_tracking()
+
+        thread = threading.Thread(target=run_eye_tracking, daemon=True)
+        thread.start()
+
     elif mode == "canvas":
         drawing_canvas.start_canvas()
 
@@ -37,7 +44,7 @@ def stop_detection():
     return redirect(url_for("index"))
     
 
-# ----------------- CHATBOT ROUTE -----------------
+
 @app.route("/chat", methods=["POST"])
 def chat():
     data = request.get_json()
@@ -48,6 +55,6 @@ def chat():
     bot_response = rag_chatbot.get_chatbot_response(user_query)
     return jsonify({"response": bot_response})
 
-# ----------------- RUN -----------------
+
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=False)
