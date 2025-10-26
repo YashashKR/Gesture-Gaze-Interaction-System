@@ -1,78 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
     <title>Multimodal Air Canvas</title>
-</head>
-<body>
-    <a href="{{ url_for('index') }}">
-    <img src="{{ url_for('static', filename='images/download.jpg') }}" 
-         alt="AirCanvas Logo" 
-         class="logo">
-    </a>
-    <div class="container">
-        <h1>Multimodal Air Canvas</h1>
-        <button onclick="window.location.href='/start/hand'">Start Gesture Mode</button>
-        <button onclick="window.location.href='/start/eye'">Start Eye Tracking Mode</button>
-        <button onclick="window.location.href='/start/canvas'">Start Canvas Mode</button>
-        <button onclick="window.location.href='/stop'">Stop Detection</button>
+  </head>
+  <body>
+  
+    
+    <!--NAVIGATION BAR -->
+    <nav class="navbar">
+      
+      <ul class="nav-links">
+        <li><a href="{{ url_for('index') }}">Home</a></li>
 
+        <li class="dropdown">
+          <a href="#" class="dropbtn">Modes</a>
+          <div class="dropdown-content">
+            <a href="/start/hand">Hand Gesture Mode</a>
+            <a href="/start/eye">Eye Tracking Mode</a>
+            <a href="/start/canvas">Drawing Canvas Mode</a>
+          </div>
+        </li>
+
+        <li><a href="#about-section">About</a></li>
+      </ul>
+    </nav>
+    <a href="{{ url_for('index') }}">
+      <img
+        src="{{ url_for('static', filename='images/download.jpg') }}"
+        alt="AirCanvas Logo"
+        class="logo"
+      />
+    </a>
+
+
+    <div class="container">
+      <h1>Multimodal Air Canvas</h1>
+      <button onclick="window.location.href='/start/hand'">
+        Start Gesture Mode
+      </button>
+      <button onclick="window.location.href='/start/eye'">
+        Start Eye Tracking Mode
+      </button>
+      <button onclick="window.location.href='/start/canvas'">
+        Start Canvas Mode
+      </button>
+      <button onclick="window.location.href='/stop'">Stop Detection</button>
     </div>
 
     <!-- Chatbot floating button -->
-<div id="chatbot-container">
-    <button id="chatbot-toggle">💬</button>
-    <div id="chatbox" class="hidden">
+    <div id="chatbot-container">
+      <button id="chatbot-toggle">💬</button>
+      <div id="chatbox" class="hidden">
         <div id="chatbox-header">
-            <span>AirCanvas Assistant 🤖</span>
-            <button id="close-chat">✖</button>
+          <span>AirCanvas Assistant 🤖</span>
+          <button id="close-chat">✖</button>
         </div>
         <div id="chat-messages"></div>
         <div id="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Ask me something..." />
-            <button id="mic-btn">🎙️</button>
-            <button id="send-btn">➤</button>
-
+          <input
+            type="text"
+            id="chat-input"
+            placeholder="Ask me something..."
+          />
+          <button id="mic-btn">🎙️</button>
+          <button id="send-btn">➤</button>
         </div>
-    </div>
-</div>
+      </div>
+    </div>  
 
-<script>
-    // Toggle chatbot popup
-    let firstOpen = true; // Track if it's the first time opening
+    <script>
+      // Toggle chatbot popup
+      let firstOpen = true; // Track if it's the first time opening
 
-// Toggle chatbot popup
-document.getElementById("chatbot-toggle").onclick = () => {
-    const chatbox = document.getElementById("chatbox");
-    chatbox.classList.toggle("hidden");
+      // Toggle chatbot popup
+      document.getElementById("chatbot-toggle").onclick = () => {
+        const chatbox = document.getElementById("chatbox");
+        chatbox.classList.toggle("hidden");
 
-    // Send greeting only the first time
-    if (!chatbox.classList.contains("hidden") && firstOpen) {
-        const chatMessages = document.getElementById("chat-messages");
-        chatMessages.innerHTML += `<div class='bot-msg'><b>Bot:</b> 👋 Hi there!</div>`;
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-        firstOpen = false; // Prevent repeating
-    }
-};
+        // Send greeting only the first time
+        if (!chatbox.classList.contains("hidden") && firstOpen) {
+          const chatMessages = document.getElementById("chat-messages");
+          chatMessages.innerHTML += `<div class='bot-msg'><b>Bot:</b> 👋 Hi there!</div>`;
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+          firstOpen = false; // Prevent repeating
+        }
+      };
 
-
-    // Close button
-    document.getElementById("close-chat").onclick = () => {
+      // Close button
+      document.getElementById("close-chat").onclick = () => {
         document.getElementById("chatbox").classList.add("hidden");
-    };
+      };
 
-    // Send message
-    async function sendMessage() {
+      // Send message
+      async function sendMessage() {
         const input = document.getElementById("chat-input");
         const message = input.value.trim();
         if (!message) return;
 
         const chatMessages = document.getElementById("chat-messages");
         chatMessages.innerHTML += `<div class='user-msg'><b>You:</b> ${message}</div>`;
-        
-
 
         // Clear input after sending
         input.value = "";
@@ -87,9 +119,9 @@ document.getElementById("chatbot-toggle").onclick = () => {
 
         // Fetch response
         const res = await fetch("/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: message })
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: message }),
         });
 
         const data = await res.json();
@@ -97,52 +129,62 @@ document.getElementById("chatbot-toggle").onclick = () => {
 
         chatMessages.innerHTML += `<div class='bot-msg'><b>Bot:</b> ${data.response}</div>`;
         chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
+      }
 
-    document.getElementById("send-btn").onclick = sendMessage;
-    document.getElementById("chat-input").addEventListener("keypress", e => {
-        if (e.key === "Enter") sendMessage();
-    });
+      document.getElementById("send-btn").onclick = sendMessage;
+      document
+        .getElementById("chat-input")
+        .addEventListener("keypress", (e) => {
+          if (e.key === "Enter") sendMessage();
+        });
 
-    // 🎤 Voice recognition setup
-const micBtn = document.getElementById("mic-btn");
-let recognizing = false;
-let recognition;
+      // 🎤 Voice recognition setup
+      const micBtn = document.getElementById("mic-btn");
+      let recognizing = false;
+      let recognition;
 
-if ("webkitSpeechRecognition" in window) {
-    recognition = new webkitSpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = "en-US";
+      if ("webkitSpeechRecognition" in window) {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = "en-US";
 
-    recognition.onstart = () => {
-        recognizing = true;
-        micBtn.style.background = "#e74c3c"; // red while recording
-    };
+        recognition.onstart = () => {
+          recognizing = true;
+          micBtn.style.background = "#e74c3c"; // red while recording
+        };
 
-    recognition.onend = () => {
-        recognizing = false;
-        micBtn.style.background = "#024277"; // back to normal
-    };
+        recognition.onend = () => {
+          recognizing = false;
+          micBtn.style.background = "#024277"; // back to normal
+        };
 
-    recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        document.getElementById("chat-input").value = transcript;
-        sendMessage(); // Automatically send after recognition
-    };
-}
+        recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          document.getElementById("chat-input").value = transcript;
+          sendMessage(); // Automatically send after recognition
+        };
+      }
 
-micBtn.onclick = () => {
-    if (!recognizing && recognition) {
-        recognition.start();
-    } else if (recognition) {
-        recognition.stop();
-    }
-};
-
-
-
-</script>
-
-</body>
+      micBtn.onclick = () => {
+        if (!recognizing && recognition) {
+          recognition.start();
+        } else if (recognition) {
+          recognition.stop();
+        }
+      };
+      document.addEventListener("click", function (e) {
+        const dropdown = document.querySelector(".dropdown-content");
+        const button = document.querySelector(".dropbtn");
+        if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.style.display = "none";
+        } else if (button.contains(e.target)) {
+          dropdown.style.display =
+            dropdown.style.display === "block" ? "none" : "block";
+        }
+      });
+      
+    </script>
+    
+  </body>
 </html>
