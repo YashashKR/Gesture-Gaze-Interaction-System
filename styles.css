@@ -16,6 +16,8 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
 }
 
 /* AI Background Overlay */
@@ -170,19 +172,33 @@ body::before {
 /* Control Cards */
 .control-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
     padding: 1rem;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
+@media (min-width: 1200px) {
+    .control-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 1000px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .control-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1400px;
+    }
+}
+
 .control-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
     border-radius: 20px;
     padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
@@ -430,7 +446,7 @@ body::before {
 
 /* Big Stop Button */
 .big-stop-button {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 15px;
     padding: 0.6rem 1rem;
     width: fit-content;
@@ -440,7 +456,7 @@ body::before {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(3px);
 }
 
 .big-stop-button::before {
@@ -533,8 +549,8 @@ body::before {
     right: 0;
     width: 350px;
     height: 500px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(5px);
     border-radius: 20px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -743,8 +759,8 @@ body::before {
     right: 0;
     width: 350px;
     height: 500px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(5px);
     border-radius: 20px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -859,6 +875,68 @@ body::before {
     .chat-box, #chatbox {
         width: 300px;
         height: 400px;
+    }
+    
+    .control-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .game-instructions {
+        padding: 0.8rem;
+        margin: 0.8rem 0;
+    }
+}
+
+/* Image and text clarity improvements */
+img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Game Modal Specific Styles */
+.game-instructions {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.game-instructions h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Enhanced game card styling */
+.control-card:nth-child(4) {
+    background: rgba(255, 159, 67, 0.15);
+}
+
+.control-card:nth-child(4):hover {
+    background: rgba(255, 159, 67, 0.2);
+    border-color: rgba(255, 159, 67, 0.4);
+}
+
+.control-card:nth-child(4) .card-icon {
+    animation: gameIconPulse 2s ease-in-out infinite;
+}
+
+@keyframes gameIconPulse {
+    0%, 100% { 
+        transform: scale(1) rotate(0deg); 
+        color: #ff9f43;
+    }
+    50% { 
+        transform: scale(1.1) rotate(5deg); 
+        color: #ff7675;
     }
 }
 

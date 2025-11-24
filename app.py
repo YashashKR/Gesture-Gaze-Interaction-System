@@ -2,8 +2,10 @@ from flask import Flask, render_template, redirect, url_for, request, jsonify
 import hand_gesture_mouse
 import eye_tracking_mouse
 import rag_chatbot
-import drawing_canvas   
+import drawing_canvas
 import threading
+import game
+
 
 app = Flask(__name__)
 mode = "hand"
@@ -16,33 +18,41 @@ def index():
 @app.route("/start/<tracking_mode>")
 def start_detection(tracking_mode):
     global mode
-    mode = tracking_mode
+    mode = tracking_mode  # Set mode (hand/eye/canvas/game)
 
     if mode == "hand":
-        hand_gesture_mouse.stop_hand_gesture()  # Ensure clean state
-        hand_gesture_mouse.start_hand_gesture()
-
+        hand_gesture_mouse.running = True
+        hand_gesture_mouse.detect_hand_gestures()
     elif mode == "eye":
-        def run_eye_tracking():
-            eye_tracking_mouse.running = True
-            eye_tracking_mouse.detect_eye_tracking()
-
-        thread = threading.Thread(target=run_eye_tracking, daemon=True)
-        thread.start()
-
-    elif mode == "canvas":
+        eye_tracking_mouse.running = True
+        eye_tracking_mouse.detect_eye_tracking()
+    elif mode == "canvas": 
         drawing_canvas.start_canvas()
+    elif mode == "game":
+        # Start the gesture-controlled snake game in a separate thread
+        game_thread = threading.Thread(target=start_game, daemon=True)
+        game_thread.start()
 
     return redirect(url_for("index"))
-
 
 @app.route("/stop")
 def stop_detection():
-    hand_gesture_mouse.stop_hand_gesture()
+    hand_gesture_mouse.running = False
     eye_tracking_mouse.running = False
     drawing_canvas.stop_canvas()
+    game.STOP_THREADS = True  # Stop the game
     return redirect(url_for("index"))
-    
+
+def start_game():
+    try:
+        game.STOP_THREADS = False
+        cam_thread = threading.Thread(target=game.camera_worker, args=(0,), daemon=True)
+        cam_thread.start()
+        game.run_game()
+    except Exception as e:
+        print(f"Game error: {e}")
+    finally:
+        game.STOP_THREADS = True
 
 
 @app.route("/chat", methods=["POST"])
