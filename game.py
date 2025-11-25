@@ -5,6 +5,7 @@ import math
 import numpy as np
 import pygame
 import os
+import tkinter as tk
 
 try:
     import cv2
@@ -19,6 +20,18 @@ gesture_lock = threading.Lock()
 STOP_THREADS = False
 DEADZONE = 0.12
 FPS_CAM = 10
+
+# Get screen dimensions
+root = tk.Tk()
+SCREEN_WIDTH = root.winfo_screenwidth()
+SCREEN_HEIGHT = root.winfo_screenheight()
+root.destroy()
+
+# Calculate window sizes
+GAME_WIDTH = int(SCREEN_WIDTH * 0.8)
+GAME_HEIGHT = int(SCREEN_HEIGHT * 0.8)
+CAM_WIDTH = int(SCREEN_WIDTH * 0.2)
+CAM_HEIGHT = int(SCREEN_HEIGHT * 0.2)
 
 def camera_worker(camera_index=0):
     global gesture_direction, STOP_THREADS
@@ -86,8 +99,13 @@ def camera_worker(camera_index=0):
             cv2.putText(frame, "Press 'q' to close", (10, frame.shape[0] - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
 
             try:
-                cv2.imshow("Gesture Control", frame)
+                # Resize frame for smaller window
+                frame_resized = cv2.resize(frame, (CAM_WIDTH, CAM_HEIGHT))
+                cv2.imshow("Gesture Control", frame_resized)
+                # Position webcam window
+                cv2.moveWindow("Gesture Control", GAME_WIDTH, 0)
                 if cv2.waitKey(1) & 0xFF == ord('q'):
+                    STOP_THREADS = True
                     break
             except:
                 pass
@@ -101,7 +119,7 @@ def camera_worker(camera_index=0):
         pass
 
 
-SCREEN_W, SCREEN_H = 640, 480
+SCREEN_W, SCREEN_H = GAME_WIDTH, GAME_HEIGHT
 CELL_SIZE = 20
 COLS = SCREEN_W // CELL_SIZE
 ROWS = SCREEN_H // CELL_SIZE
@@ -146,12 +164,13 @@ def run_game():
     move_delay = 10
 
     running = True
-    while running:
+    while running and not STOP_THREADS:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
+                if event.key == pygame.K_ESCAPE or event.key == pygame.K_q:
+                    STOP_THREADS = True
                     running = False
                 elif event.key == pygame.K_UP and current_dir != "DOWN":
                     current_dir = "UP"
@@ -219,6 +238,10 @@ def run_game():
         
         pygame.display.flip()
         clock.tick(60)
+        
+        # Check if camera thread stopped (q pressed)
+        if STOP_THREADS:
+            running = False
 
     screen.fill(BLACK)
     game_over_text = title_font.render("GAME OVER!", True, WHITE)
