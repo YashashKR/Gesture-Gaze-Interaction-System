@@ -6,122 +6,21 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: 
-        linear-gradient(135deg, rgba(15, 32, 75, 0.7) 0%, rgba(44, 62, 80, 0.6) 50%, rgba(102, 126, 234, 0.5) 100%),
-        url('/static/images/Robo-bg.jpg');
+    background:url('/static/images/Robo-bg.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
     min-height: 100vh;
     overflow-x: hidden;
-    position: relative;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-}
-
-/* AI Background Overlay */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 30% 70%, rgba(0, 210, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 70% 30%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
-        linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.02) 50%, transparent 70%);
-    z-index: -1;
-    animation: overlayPulse 8s ease-in-out infinite;
-}
-
-@keyframes overlayPulse {
-    0%, 100% { opacity: 0.8; }
-    50% { opacity: 1; }
-}
-
-/* AI-themed Animated Background */
-.bg-animation {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: 0.3;
-}
-
-.ai-element {
-    position: absolute;
-    color: rgba(255, 255, 255, 0.1);
-    font-size: 2rem;
-    animation: aiFloat 8s ease-in-out infinite;
-}
-
-.ai-element:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
-.ai-element:nth-child(2) { top: 25%; right: 15%; animation-delay: 2s; }
-.ai-element:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 4s; }
-.ai-element:nth-child(4) { bottom: 30%; right: 25%; animation-delay: 1s; }
-.ai-element:nth-child(5) { top: 50%; left: 50%; animation-delay: 3s; }
-.ai-element:nth-child(6) { top: 70%; left: 80%; animation-delay: 5s; }
-.ai-element:nth-child(7) { top: 35%; left: 75%; animation-delay: 6s; }
-.ai-element:nth-child(8) { top: 80%; left: 15%; animation-delay: 7s; }
-
-@keyframes aiFloat {
-    0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.1; }
-    50% { transform: translateY(-30px) rotate(180deg) scale(1.2); opacity: 0.2; }
-}
-
-/* AI Neural Network Background */
-.neural-network {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: 0.12;
-    background-image: 
-        radial-gradient(circle at 25% 25%, rgba(0, 210, 255, 0.4) 2px, transparent 2px),
-        radial-gradient(circle at 75% 25%, rgba(138, 43, 226, 0.4) 2px, transparent 2px),
-        radial-gradient(circle at 25% 75%, rgba(58, 123, 213, 0.4) 2px, transparent 2px),
-        radial-gradient(circle at 75% 75%, rgba(0, 255, 255, 0.4) 2px, transparent 2px);
-    background-size: 100px 100px, 100px 100px, 100px 100px, 100px 100px;
-    animation: networkPulse 8s ease-in-out infinite;
-}
-
-@keyframes networkPulse {
-    0%, 100% { opacity: 0.08; transform: scale(1); }
-    50% { opacity: 0.15; transform: scale(1.02); }
-}
-
-/* AI Data Stream Effect */
-.data-stream {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: 0.15;
-    background: 
-        linear-gradient(90deg, transparent 0%, rgba(0, 210, 255, 0.3) 50%, transparent 100%),
-        linear-gradient(45deg, transparent 0%, rgba(138, 43, 226, 0.2) 50%, transparent 100%);
-    background-size: 400px 100%, 100% 400px;
-    animation: dataFlow 12s linear infinite;
-}
-
-@keyframes dataFlow {
-    0% { background-position: -300px 0, 0 -300px; }
-    100% { background-position: 100% 0, 0 100%; }
+    position: relative; 
 }
 
 /* Header */
 .header {
     text-align: center;
     padding: 1rem 0;
-    color: white;
+    color: rgb(255, 255, 255);
     position: relative;
 }
 
@@ -130,15 +29,10 @@ body::before {
     font-size: 3.5rem;
     font-weight: 900;
     margin-bottom: 0.5rem;
-    background: linear-gradient(45deg, #00d2ff, #3a7bd5, #ff6b6b, #ee5a24);
-    background-size: 400% 400%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: rgb(219, 219, 219);
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-    animation: glow 2s ease-in-out infinite alternate, gradientShift 3s ease-in-out infinite;
 }
-
+    
 @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -195,15 +89,17 @@ body::before {
 
 .control-card {
     background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(12px);
     border-radius: 20px;
     padding: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
     overflow: hidden;
 }
+
 
 .control-card::before {
     content: '';
@@ -268,6 +164,7 @@ body::before {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    z-index: 1;
 }
 
 .start-btn::before {
@@ -283,6 +180,24 @@ body::before {
     transition: width 0.3s, height 0.3s;
 }
 
+/* The "Shine" Line */
+.start-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.815), 
+        transparent
+    );
+    transition: 0.5s;
+    z-index: -1;
+}
+
 .start-btn:hover::before {
     width: 300px;
     height: 300px;
@@ -290,9 +205,11 @@ body::before {
 
 .start-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     background: rgba(255, 255, 255, 0.9);
 }
+
+.start-btn:hover::after {
+    left: 100%;}
 
 /* Popup Modal */
 .modal {
@@ -308,20 +225,24 @@ body::before {
 }
 
 .modal-content {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #3f5de6 0%, #b68edd 100%);
     margin: 5% auto;
     padding: 2rem;
     border-radius: 20px;
     width: 90%;
     max-width: 500px;
     position: relative;
-    animation: modalSlideIn 0.5s ease;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    /*animation: modalSlideIn 0.5s ease;*/
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+    animation: gentlePopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-@keyframes modalSlideIn {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+@keyframes gentlePopIn {
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);}
 }
 
 .close {
@@ -406,6 +327,12 @@ body::before {
     transform: scale(1.05);
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-active {
+    border: 2px solid #00ff88 !important;
+    background: rgba(0, 255, 136, 0.1) !important;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.2) !important;
 }
 
 /* Status Indicator */
@@ -915,48 +842,23 @@ img {
     gap: 0.5rem;
 }
 
-/* Enhanced game card styling */
-.control-card:nth-child(4) {
-    background: rgba(255, 159, 67, 0.15);
-}
-
-.control-card:nth-child(4):hover {
-    background: rgba(255, 159, 67, 0.2);
-    border-color: rgba(255, 159, 67, 0.4);
-}
-
-.control-card:nth-child(4) .card-icon {
-    animation: gameIconPulse 2s ease-in-out infinite;
-}
-
-@keyframes gameIconPulse {
-    0%, 100% { 
-        transform: scale(1) rotate(0deg); 
-        color: #ff9f43;
+    /* Additional animations */
+    @keyframes slideInDown {
+        from { transform: translateX(-50%) translateY(-100%); }
+        to { transform: translateX(-50%) translateY(0); }
     }
-    50% { 
-        transform: scale(1.1) rotate(5deg); 
-        color: #ff7675;
+
+    @keyframes slideOutUp {
+        from { transform: translateX(-50%) translateY(0); }
+        to { transform: translateX(-50%) translateY(-100%); }
     }
-}
 
-/* Additional animations */
-@keyframes slideInDown {
-    from { transform: translateX(-50%) translateY(-100%); }
-    to { transform: translateX(-50%) translateY(0); }
-}
+    @keyframes popupSlideIn {
+        from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+        to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
 
-@keyframes slideOutUp {
-    from { transform: translateX(-50%) translateY(0); }
-    to { transform: translateX(-50%) translateY(-100%); }
-}
-
-@keyframes popupSlideIn {
-    from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-    to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-}
-
-@keyframes popupSlideOut {
-    from { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-    to { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-}
+    @keyframes popupSlideOut {
+        from { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        to { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+    }
