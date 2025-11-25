@@ -3,25 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎯 Multimodal Air Canvas - AI Control System</title>
+    <title>Multimodal Air Canvas - AI Control System</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <!-- AI-themed Animated Background -->
-    <div class="neural-network"></div>
-    <div class="data-stream"></div>
-    <div class="bg-animation">
-        <div class="ai-element">🤖</div>
-        <div class="ai-element">🧠</div>
-        <div class="ai-element">⚡</div>
-        <div class="ai-element">🔮</div>
-        <div class="ai-element">🎯</div>
-        <div class="ai-element">💫</div>
-        <div class="ai-element">🔍</div>
-        <div class="ai-element">📊</div>
-    </div>
 
     <!-- Status Indicator -->
     <div class="status-indicator" id="statusIndicator">
@@ -31,7 +18,7 @@
 
     <!-- Header -->
     <div class="header">
-        <h1>🎨 MULTIMODAL AIR CANVAS</h1>
+        <h1>MULTIMODAL AIR CANVAS</h1>
         <p>Next-Generation Multimodal Control System</p>
     </div>
 
@@ -54,7 +41,7 @@
     <div class="control-grid">
         <!-- Hand Gesture Control -->
         <div class="control-card" onclick="showModal('handModal')">
-            <i class="fas fa-hand-paper card-icon" style="color: #ff6b6b;"></i>
+            <i class="fas fa-hand-paper card-icon" style="color: #fccdb4;"></i>
             <h3 class="card-title">Hand Gesture Control</h3>
             <p class="card-description">Advanced position-based scrolling with fist gestures for speed control</p>
             <button class="start-btn" onclick="event.stopPropagation(); startMode('hand')">
@@ -64,7 +51,7 @@
 
         <!-- Eye Tracking Control -->
         <div class="control-card" onclick="showModal('eyeModal')">
-            <i class="fas fa-eye card-icon" style="color: #3a7bd5;"></i>
+            <i class="fas fa-eye card-icon" style="color: #1c54be;"></i>
             <h3 class="card-title">Eye Tracking Control</h3>
             <p class="card-description">Navigate using your eye movements with precision tracking</p>
             <button class="start-btn" onclick="event.stopPropagation(); startMode('eye')">
@@ -74,7 +61,7 @@
 
         <!-- Drawing Canvas -->
         <div class="control-card" onclick="showModal('canvasModal')">
-            <i class="fas fa-paint-brush card-icon" style="color: #00d2ff;"></i>
+            <i class="fas fa-paint-brush card-icon" style="color: #ff7700;"></i>
             <h3 class="card-title">Air Canvas Drawing</h3>
             <p class="card-description">Draw in the air using hand gestures and create digital art</p>
             <button class="start-btn" onclick="event.stopPropagation(); startMode('canvas')">
@@ -84,7 +71,7 @@
 
         <!-- Gesture-Controlled Snake Game -->
         <div class="control-card" onclick="showModal('gameModal')">
-            <i class="fas fa-gamepad card-icon" style="color: #ff9f43;"></i>
+            <i class="fas fa-gamepad card-icon" style="color: #f94545;"></i>
             <h3 class="card-title">Snake Game</h3>
             <p class="card-description">Play the classic Snake game using hand gestures - point to control direction!</p>
             <button class="start-btn" onclick="event.stopPropagation(); startMode('game')">
