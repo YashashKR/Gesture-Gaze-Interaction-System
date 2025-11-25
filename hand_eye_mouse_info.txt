@@ -1,0 +1,65 @@
+1. Project Overview
+The Multimodal Air Canvas is a comprehensive Human-Computer Interaction (HCI) system. It combines Computer Vision and AI to allow touchless control of a computer using hands and eyes. It features four main modes: Hand Control, Eye Tracking, Air Canvas, and a Gesture Game.
+
+2. Hand Gesture Control Mode
+- Technology: Uses MediaPipe Hands to track 21 landmarks on the hand.
+- Cursor Movement: The mouse cursor follows the tip of the Index Finger.
+- Left Click & Drag: Perform a "Pinch" gesture (bring Thumb and Index finger close together).
+- Scrolling:
+  • Scroll Down: Move Index finger tip *below* the Middle finger tip.
+  • Scroll Up: Move Index finger tip *above* the Middle finger tip.
+- Smoothing: Uses an algorithm to reduce cursor shaking/jitter.
+
+3. Eye Tracking Control Mode
+- Technology: Uses MediaPipe Face Mesh to detect iris position and eye landmarks.
+- Cursor Movement: Tracks the center of the user's Iris to move the mouse.
+- Left Click: Perform a "Double Blink" (blink both eyes quickly).
+- Scroll Down: Wink the Left Eye.
+- Scroll Up: Wink the Right Eye.
+- Calibration: Requires good lighting and the user to sit at a stable distance from the camera.
+
+4. Air Canvas (Virtual Drawing Board)
+- Drawing Gesture: Raise *only* the Index Finger to draw.
+- Hover Mode: Raise both Index and Middle fingers to move without drawing.
+- Tools & Features:
+  • Virtual Toolbar: Buttons for Clear, Eraser, Undo, Info, and Save.
+  • Color Palette: Select colors from the sidebar on the left.
+  • Brush Styles: Supports Normal, Dashed, Zigzag, and Straight lines.
+  • Saving: Can save the current artwork as an image file.
+- Shortcuts:
+  • 'C': Clear Canvas
+  • 'E': Eraser
+  • 'U': Undo
+  • 'S': Toggle Stroke Style
+  • 'M': Toggle Dark/Light Mode
+
+5. Gesture-Controlled Snake Game
+- Gameplay: A classic Snake game controlled entirely by hand movements.
+- Control Logic: Detects the direction of the Index Finger relative to the Wrist.
+- Controls:
+  • Point UP: Move Snake Up
+  • Point DOWN: Move Snake Down
+  • Point LEFT: Move Snake Left
+  • Point RIGHT: Move Snake Right
+- Technology: Built using Pygame for graphics and OpenCV for control.
+
+6. Tech Stack
+- Frontend: HTML5, CSS3 (Cyberpunk/AI Theme), JavaScript.
+- Backend: Python (Flask).
+- AI & Vision: OpenCV, MediaPipe, Google Gemini API (for the Chatbot).
+- Automation: PyAutoGUI (for mouse control).
+- Game Engine: Pygame.
+
+7. System Advantages
+- Accessibility: Helps users with motor impairments use computers without physical devices.
+- Hygiene: Touchless interface ideal for medical or public settings.
+- Multimodal: Offers multiple ways to interact (Hand, Eye, or Voice/Chat).
+
+8. Limitations
+- Lighting: Performance drops in dark rooms.
+- Stability: Eye tracking requires a steady head position.
+- Hardware: Requires a functioning webcam.
+
+Summary
+
+The Multimodal Air Canvas is a touchless Human-Computer Interaction system that uses computer vision to enable mouse control, virtual drawing, and gaming through hand gestures and eye movements. It unifies these features into a Flask-based web application with a modern UI, allowing users to switch between a gesture mouse, an eye tracker, a digital whiteboard, and a gesture-controlled snake game. The system also integrates a Gemini-powered AI chatbot to answer user queries about controls and functionality.
