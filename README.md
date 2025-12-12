@@ -4,7 +4,6 @@ A Next-Generation Human-Computer Interaction (HCI) system that enables touchless
 
 -----
 <img width="1899" height="870" alt="Image" src="https://github.com/user-attachments/assets/26572b47-d9c5-433b-a6f6-82a0464859e9" />
------
 
 ##  Features
 
