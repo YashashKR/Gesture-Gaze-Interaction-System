@@ -3,7 +3,7 @@
 A Next-Generation Human-Computer Interaction (HCI) system that enables touchless computer control using **hand gestures** and **eye movements**. Built with Python and Computer Vision, it features a futuristic web interface and an integrated AI Assistant powered by Google Gemini.
 
 -----
-https://github.com/YashashKR/Multimodal-Air-Canvas/issues/1#issue-3723803163
+<img width="1899" height="870" alt="Image" src="https://github.com/user-attachments/assets/26572b47-d9c5-433b-a6f6-82a0464859e9" />
 -----
 
 ##  Features
