@@ -1,95 +1,65 @@
-Hand Gesture Mouse Project
+1. Project Overview
+The Gesture gaze interaction system is a comprehensive Human-Computer Interaction (HCI) system. It combines Computer Vision and AI to allow touchless control of a computer using hands and eyes. It features four main modes: Hand Control, Eye Tracking, Air Canvas, and a Gesture Game.
 
-1. What is it?
-The Hand Gesture Mouse is a computer vision–based system that uses a webcam and AI (e.g., MediaPipe, OpenCV) to track hand movements and translate them into mouse operations like move, click, drag, and scroll.
+2. Hand Gesture Control Mode
+- Technology: Uses MediaPipe Hands to track 21 landmarks on the hand.
+- Cursor Movement: The mouse cursor follows the tip of the Index Finger.
+- Left Click & Drag: Perform a "Pinch" gesture (bring Thumb and Index finger close together).
+- Scrolling:
+  • Scroll Down: Move Index finger tip *below* the Middle finger tip.
+  • Scroll Up: Move Index finger tip *above* the Middle finger tip.
+- Smoothing: Uses an algorithm to reduce cursor shaking/jitter.
 
-2. Why build it?
-- Touchless control (useful in hospitals, labs)
-- Accessibility for disabled users
-- Innovation in human–computer interaction
-- Low-cost (webcam only)
+3. Eye Tracking Control Mode
+- Technology: Uses MediaPipe Face Mesh to detect iris position and eye landmarks.
+- Cursor Movement: Tracks the center of the user's Iris to move the mouse.
+- Left Click: Perform a "Double Blink" (blink both eyes quickly).
+- Scroll Down: Wink the Left Eye.
+- Scroll Up: Wink the Right Eye.
+- Calibration: Requires good lighting and the user to sit at a stable distance from the camera.
 
-3. How it works (Workflow):
-- Webcam captures live video
-- Hand detection with MediaPipe Hands
-- Gestures mapped (pinch, finger taps, etc.)
-- Cursor mapping via normalized coordinates
-- Actions executed via PyAutoGUI
+4. Air Canvas (Virtual Drawing Board)
+- Drawing Gesture: Raise *only* the Index Finger to draw.
+- Hover Mode: Raise both Index and Middle fingers to move without drawing.
+- Tools & Features:
+  • Virtual Toolbar: Buttons for Clear, Eraser, Undo, Info, and Save.
+  • Color Palette: Select colors from the sidebar on the left.
+  • Brush Styles: Supports Normal, Dashed, Zigzag, and Straight lines.
+  • Saving: Can save the current artwork as an image file.
+- Shortcuts:
+  • 'C': Clear Canvas
+  • 'E': Eraser
+  • 'U': Undo
+  • 'S': Toggle Stroke Style
+  • 'M': Toggle Dark/Light Mode
 
-4. Example Features:
-- Cursor movement → index finger
-- Left click → pinch (thumb + index)
-- Right click → index + middle pinch
-- Drag/Draw → hold pinch and move
+5. Gesture-Controlled Snake Game
+- Gameplay: A classic Snake game controlled entirely by hand movements.
+- Control Logic: Detects the direction of the Index Finger relative to the Wrist.
+- Controls:
+  • Point UP: Move Snake Up
+  • Point DOWN: Move Snake Down
+  • Point LEFT: Move Snake Left
+  • Point RIGHT: Move Snake Right
+- Technology: Built using Pygame for graphics and OpenCV for control.
 
-5. Tech Stack:
-Python, OpenCV, MediaPipe, PyAutoGUI, NumPy
+6. Tech Stack
+- Frontend: HTML5, CSS3 (Cyberpunk/AI Theme), JavaScript.
+- Backend: Python (Flask).
+- AI & Vision: OpenCV, MediaPipe, Google Gemini API (for the Chatbot).
+- Automation: PyAutoGUI (for mouse control).
+- Game Engine: Pygame.
 
-6. Applications:
-- Assistive tech
-- Interactive whiteboards
-- Touch-free healthcare systems
-- Games & AR/VR
+7. System Advantages
+- Accessibility: Helps users with motor impairments use computers without physical devices.
+- Hygiene: Touchless interface ideal for medical or public settings.
+- Multimodal: Offers multiple ways to interact (Hand, Eye, or Voice/Chat).
 
-7. Challenges:
-- Sensitive to lighting and background clutter
-- Latency issues
-- Fatigue from prolonged use
-
-8. Advantages:
-Affordable, intuitive, accessible, cross-platform
-
-9. Limitations:
-Needs stable lighting, less precise than physical mouse, tiring over long use
-
-
-Eye Tracking Mouse Project
-
-1. What is it?
-The Eye Tracking Mouse (or Gaze-Controlled Mouse) is a system that allows users to control the cursor using eye gaze and blinks/winks for actions.
-
-2. Why build it?
-- Accessibility for motor-impaired individuals
-- Touch-free interaction in sterile environments
-- Innovation in futuristic HCI
-- Cost-effective alternative to hardware trackers
-
-3. How it works (Workflow):
-- Webcam captures user’s face
-- MediaPipe FaceMesh detects eye landmarks
-- Gaze direction mapped to screen coordinates
-- EAR (Eye Aspect Ratio) used for blink detection
-- Blinks/winks trigger clicks/drawing mode
-
-4. Example Features:
-- Cursor moves with gaze
-- Double blink → left click
-- Prolonged blink/wink → right click
-- Drawing mode toggle via blink
-
-5. Tech Stack:
-Python, OpenCV, MediaPipe FaceMesh, NumPy, PyAutoGUI
-
-6. Applications:
-- Assistive technology
-- Healthcare labs/operating rooms
-- Education for special needs
-- Gaming/VR/AR
-
-7. Challenges:
-- Less accurate with webcams vs hardware trackers
-- Lighting sensitivity, glare issues with glasses
-- Eye fatigue
-- Requires calibration
-
-8. Advantages:
-Hands-free, accessibility, low-cost, hygiene-friendly
-
-9. Limitations:
-Lighting and camera dependent, less precise, fatigue issues
+8. Limitations
+- Lighting: Performance drops in dark rooms.
+- Stability: Eye tracking requires a steady head position.
+- Hardware: Requires a functioning webcam.
 
 Summary
 
-The Hand Gesture Mouse and Eye Tracking Mouse are both innovative touchless control systems. 
-Gesture-based control is intuitive for short tasks, while eye-tracking is highly inclusive for users with mobility limitations. 
-Together, they form the backbone of the Multimodal Air Canvas project — offering users a choice of input modality for accessibility and creativity.
+The Multimodal Air Canvas is a touchless Human-Computer Interaction system that uses computer vision to enable mouse control, virtual drawing, and gaming through hand gestures and eye movements. It unifies these features into a Flask-based web application with a modern UI, allowing users to switch between a gesture mouse, an eye tracker, a digital whiteboard, and a gesture-controlled snake game. The system also integrates a Gemini-powered AI chatbot to answer user queries about controls and functionality.
