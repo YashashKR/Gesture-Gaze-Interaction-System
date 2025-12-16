@@ -11,19 +11,16 @@
 </head>
 <body>
 
-    <!-- Status Indicator -->
     <div class="status-indicator" id="statusIndicator">
         <span class="status-dot status-inactive" id="statusDot"></span>
         <span id="statusText">System Offline</span>
     </div>
 
-    <!-- Header -->
     <div class="header">
         <h1>Gesture-Gaze Interaction System</h1>
         <p>Next-Generation Multimodal Control System</p>
     </div>
 
-    <!-- Big Stop Button -->
     <div style="text-align: center; margin: 1rem 0;">
         <div class="big-stop-button" onclick="showModal('stopModal')">
             <div style="display: flex; align-items: center; gap: 0.8rem;">
@@ -38,7 +35,6 @@
         </div>
     </div>
 
-    <!-- Control Carousel -->
     <div class="carousel-container">
         <button class="carousel-btn prev-btn" onclick="scrollCarousel(-1)">
             <i class="fas fa-chevron-left"></i>
@@ -46,7 +42,6 @@
 
         <div class="carousel-track-container" id="modeTrack">
             <div class="carousel-track">
-                <!-- Hand Gesture Control -->
                 <div class="control-card" onclick="showModal('handModal')">
                     <i class="fas fa-hand-paper card-icon" style="color: #fccdb4;"></i>
                     <h3 class="card-title">Hand Gesture Control</h3>
@@ -56,7 +51,6 @@
                     </button>
                 </div>
 
-                <!-- Eye Tracking Control -->
                 <div class="control-card" onclick="showModal('eyeModal')">
                     <i class="fas fa-eye card-icon" style="color: #1c54be;"></i>
                     <h3 class="card-title">Eye Tracking Control</h3>
@@ -66,7 +60,6 @@
                     </button>
                 </div>
 
-                <!-- Drawing Canvas -->
                 <div class="control-card" onclick="showModal('canvasModal')">
                     <i class="fas fa-paint-brush card-icon" style="color: #ff7700;"></i>
                     <h3 class="card-title">Air Canvas Drawing</h3>
@@ -76,7 +69,6 @@
                     </button>
                 </div>
 
-                <!-- Gesture-Controlled Snake Game -->
                 <div class="control-card" onclick="showModal('gameModal')">
                     <i class="fas fa-gamepad card-icon" style="color: #f94545;"></i>
                     <h3 class="card-title">Snake Game</h3>
@@ -93,7 +85,6 @@
         </button>
     </div>
 
-    <!-- Hand Gesture Modal -->
     <div id="handModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('handModal')">&times;</span>
@@ -118,7 +109,6 @@
         </div>
     </div>
 
-    <!-- Eye Tracking Modal -->
     <div id="eyeModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('eyeModal')">&times;</span>
@@ -142,7 +132,6 @@
         </div>
     </div>
 
-    <!-- Canvas Modal -->
     <div id="canvasModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('canvasModal')">&times;</span>
@@ -166,7 +155,6 @@
         </div>
     </div>
 
-    <!-- Gesture-Controlled Snake Game Modal -->
     <div id="gameModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('gameModal')">&times;</span>
@@ -199,7 +187,6 @@
         </div>
     </div>
 
-    <!-- Stop Detection Modal -->
     <div id="stopModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('stopModal')">&times;</span>
@@ -224,7 +211,6 @@
         </div>
     </div>
 
-    <!-- Floating AI Chatbot -->
     <div id="chatbot-container">
         <button id="chatbot-toggle">💬</button>
         <div id="chatbox" class="hidden">
@@ -241,7 +227,6 @@
     </div>
 
     <script>
-        // Modal Functions
         function showModal(modalId) {
             document.getElementById(modalId).style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -252,7 +237,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Start Mode Function
         function startMode(mode) {
             let modeIcon = '';
             let modeName = '';
@@ -294,7 +278,6 @@
                 });
         }
 
-        // Stop All Modes Function
         function stopAllModes() {
             showActivationPopup('⏹️', 'All Detection Modes', 'stopped');
             showStatus('Stopping all modes...', 'inactive');
@@ -314,7 +297,6 @@
                 });
         }
 
-        // Status Functions
         function showStatus(text, status) {
             const indicator = document.getElementById('statusIndicator');
             const dot = document.getElementById('statusDot');
@@ -325,7 +307,6 @@
             dot.className = `status-dot status-${status}`;
         }
 
-        // Activation Popup System
         function showActivationPopup(icon, modeName, action) {
             const popup = document.createElement('div');
             popup.style.cssText = `
@@ -359,7 +340,6 @@
             }, 2000);
         }
 
-        // Notification System
         function showNotification(message, type) {
             const notification = document.createElement('div');
             notification.style.cssText = `
@@ -384,7 +364,6 @@
             }, 3000);
         }
 
-        // Legacy Chatbot Functions
         let firstOpen = true;
 
         document.getElementById("chatbot-toggle").onclick = () => {
@@ -429,8 +408,16 @@
             const data = await res.json();
             typingDiv.remove();
 
-            chatMessages.innerHTML += `<div class='bot-msg'><b>Bot:</b> ${data.response}</div>`;
+            chatMessages.innerHTML += `<div class='bot-msg'><b>Bot:</b> ${formatMessage(data.response)}</div>`;
             chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    function formatMessage(text) {
+        let formatted = text.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
+    
+        formatted = formatted.replace(/\n/g, "<br>");
+    
+        return formatted;
+    }
         }
 
         document.getElementById("send-btn").onclick = sendMessage;
@@ -438,7 +425,6 @@
             if (e.key === "Enter") sendMessage();
         });
 
-        // Close modal on outside click
         window.onclick = function(event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
@@ -446,12 +432,10 @@
             }
         }
 
-        // Infinite Carousel Setup
         const trackContainer = document.getElementById('modeTrack'); 
         const track = trackContainer.querySelector('.carousel-track'); 
         
-        // State
-        let currentIndex = 4; // Start at first real card (after 4 clones)
+        let currentIndex = 4; 
         let cardWidth = 432; 
         let totalRealCards = 0;
         let isScrolling = false;
@@ -462,25 +446,21 @@
 
             totalRealCards = cards.length;
 
-            // Calculate card width dynamically
             const trackStyle = window.getComputedStyle(track);
             const gap = parseFloat(trackStyle.gap || trackStyle.columnGap) || 32; 
             cardWidth = cards[0].offsetWidth + gap; 
             console.log("Calculated CardWidth:", cardWidth);
 
-            // Clone Items (4 Before, 4 After)
             const clonesEnd = cards.map(c => c.cloneNode(true));
             const clonesStart = cards.map(c => c.cloneNode(true));
 
             clonesEnd.forEach(c => track.appendChild(c));
             clonesStart.reverse().forEach(c => track.insertBefore(c, track.firstChild));
 
-            // Initial Position
-            updateScrollPosition(true); // Instant jump
+            updateScrollPosition(true); 
             updateActiveCard();
         }
 
-        // Scroll to current index
         function updateScrollPosition(instant = false) {
             trackContainer.scrollTo({
                 left: currentIndex * cardWidth,
@@ -491,7 +471,7 @@
         function updateActiveCard() {
             const allCards = Array.from(track.children);
             allCards.forEach((card, index) => {
-                if (index === currentIndex + 1) { // Center card is index + 1 (since 3 items visible)
+                if (index === currentIndex + 1) { 
                      card.classList.add('active-center');
                 } else {
                      card.classList.remove('active-center');
@@ -499,22 +479,16 @@
             });
         }
 
-        // Handle Reset After Scroll
         function checkBoundary() {
-            // Real cards range: indices 4 to (4 + totalRealCards - 1)
-            // Clones Start range: 0 to 3
-            // Clones End range: (4 + totalRealCards) to ...
             
             const realStart = 4;
             const realEnd = 4 + totalRealCards - 1;
 
             if (currentIndex < realStart) {
-                // Jump to end equivalent
-                currentIndex = realEnd - (realStart - 1 - currentIndex); // Map 3->7, 2->6 etc
+                currentIndex = realEnd - (realStart - 1 - currentIndex); 
                 updateScrollPosition(true);
             } else if (currentIndex > realEnd) {
-                // Jump to start equivalent
-                currentIndex = realStart + (currentIndex - realEnd - 1); // Map 8->4, 9->5 etc
+                currentIndex = realStart + (currentIndex - realEnd - 1); 
                 updateScrollPosition(true);
             }
             
@@ -532,8 +506,7 @@
             updateScrollPosition();
             updateActiveCard();
 
-            // Wait for animation to finish then check boundary
-            setTimeout(checkBoundary, 600); // 600ms (slightly > 0.5s transition)
+            setTimeout(checkBoundary, 600); 
         }
     </script>
 </body>
