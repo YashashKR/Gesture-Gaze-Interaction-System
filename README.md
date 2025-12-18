@@ -142,7 +142,7 @@ gesture-gaze-interaction-system/
 
 ## ⚠️ Troubleshooting
 
-  * **Camera Not Opening:** Ensure no other app (Zoom/Teams) is using the webcam.
+  * **Camera Not Opening:** Ensure no other app is using the webcam.
   * **Scrolling Issues:** Adjust the lighting. The system needs clear visibility of your fingers to calculate depth and gestures.
 
 -----
